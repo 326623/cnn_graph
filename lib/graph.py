@@ -71,11 +71,11 @@ def adjacency(dist, idx):
     W = scipy.sparse.coo_matrix((V, (I, J)), shape=(M, M))
 
     # No self-connections.
+    # will eliminate zero entries in the next step
     W.setdiag(0)
 
     # Non-directed graph.
-    bigger = W.T > W
-    W = W - W.multiply(bigger) + W.T.multiply(bigger)
+    W = scipy.sparse.coo_matrix.maximum(W, W.T)
 
     assert W.nnz % 2 == 0
     assert np.abs(W - W.T).mean() < 1e-10

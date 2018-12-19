@@ -4,8 +4,8 @@ scikit-learn
 matplotlib
 
 gensim
-tensorflow-gpu
-#tensorflow
+#tensorflow-gpu
+tensorflow
 
 jupyter
 ipython
