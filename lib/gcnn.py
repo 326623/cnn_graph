@@ -177,12 +177,16 @@ class GCNN(BaseModel):
         Fout = self.F # number of filters
         K = self.K # support size of filter
         with tf.variable_scope('gconv1'):
-            x = self.chebyshev(x, self.L, Fout, K)
+            x = self.chebyshev(x, self.L, Fout, int(K/4))
             x = tf.nn.relu(x)
 
-        # with tf.variable_scope('gconv2'):
-        #     x = self.chebyshev(x, L, Fout, K)
-        #     x = tf.nn.dropout(x, dropout)
+        with tf.variable_scope('gconv2'):
+            x = self.chebyshev(x, self.L, Fout, int(K/2))
+            x = tf.nn.relu(x)
+            #x = tf.nn.dropout(x, dropout)
+        with tf.variable_scope('gconv3'):
+            x = self.chebyshev(x, self.L, Fout, int(K))
+            x = tf.nn.relu(x)
 
         with tf.variable_scope('logits'):
             x = tf.reshape(x, [-1, V * Fout])

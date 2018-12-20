@@ -64,7 +64,7 @@ del A
 gcnn = GCNN(L, 10, 10, 10)
 batch_size = 200
 epochs = 20
-prefetch_size = 20
+prefetch_size = 1
 
 train_data_copy = train_data.map(lambda x: tf.expand_dims(x, 1)).batch(batch_size).prefetch(prefetch_size)
 train_labels_copy = train_labels.batch(batch_size).prefetch(prefetch_size)
